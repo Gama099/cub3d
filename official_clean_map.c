@@ -42,7 +42,7 @@ static void	set_map_line(char *buffer, size_t *size, t_map_data *data)
 
 static int	is_allawed(char *iter)
 {
-	
+
 	if (*iter != '1' && *iter != '0' &&  *iter != 'N' &&
 		  *iter != 'W' && *iter != 'E' && *iter != 'S' && *iter != ' ')
 		  hanlde_error(ERR_INVALID_MAP_CHAR);
@@ -149,4 +149,3 @@ int	is_map(char *buffer, t_map_data *data, int fd)
 	}
 	return (size);
 }
-

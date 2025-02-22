@@ -1,20 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   official_txt.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sel-hadd <sel-hadd@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/22 13:51:40 by sel-hadd          #+#    #+#             */
+/*   Updated: 2025/02/22 20:18:48 by sel-hadd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
-
-void	on_off(char *change)
-{
-	static char	c;
-
-	if (c == '\0')
-	{
-		c = *change;
-		*change = '\0';
-	}
-	else
-	{
-		*change = c;
-		c = '\0';
-	}
-}
 
 char	*is_path(char *path)
 {
@@ -40,24 +36,22 @@ char	*is_path(char *path)
 			return (path);
 		}
 	}
-	else
-		return (NULL);
+	return (NULL);
 }
 
 static int	is_texture_full(t_map_data *data)
 {
-	return (data->north_texture && data->south_texture && data->west_texture && data->east_texture);
+	return (data->north_texture && data->south_texture
+		&& data->west_texture && data->east_texture);
 }
 
 static int	identifier_found(char *buffer)
 {
-	if (((buffer[0] == 'N') && (buffer[1] == 'O') && (is_space(buffer[2]))) ||
-		((buffer[0] == 'S') && (buffer[1] == 'O') && (is_space(buffer[2]))) ||
-		((buffer[0] == 'W') && (buffer[1] == 'E') && (is_space(buffer[2]))) ||
-		((buffer[0] == 'E') && (buffer[1] == 'A') && (is_space(buffer[2]))))
-		{
-			return (1);
-		}
+	if (((buffer[0] == 'N') && (buffer[1] == 'O') && (is_space(buffer[2])))
+		|| ((buffer[0] == 'S') && (buffer[1] == 'O') && (is_space(buffer[2])))
+		|| ((buffer[0] == 'W') && (buffer[1] == 'E') && (is_space(buffer[2])))
+		|| ((buffer[0] == 'E') && (buffer[1] == 'A') && (is_space(buffer[2]))))
+		return (1);
 	return (0);
 }
 
@@ -88,6 +82,5 @@ error_code	is_texture(char *buffer, t_map_data *data)
 				return (ERR_NONE);
 		}
 	}
-	else
-		return (ERR_NOT_TEXTURE);
+	return (ERR_NOT_TEXTURE);
 }

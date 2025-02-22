@@ -1,42 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   official_clr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sel-hadd <sel-hadd@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/22 14:23:29 by sel-hadd          #+#    #+#             */
+/*   Updated: 2025/02/22 20:17:04 by sel-hadd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parsing.h"
 
-// int	start_the_show_a(char *buffer, int *c_t, int *f_i, char start, error_code *code)
-// {
-// 	on_off(buffer);
-// 			if ((type == 'F') && (f_i < 3))
-// 			{
-// 				data->floor_color[f_i] = ft_atoi(start);
-// 				if (data->floor_color[f_i] < 0 || data->floor_color[f_i] > 250)
-// 				{
-// 					*code = ERR_COLOR_OUT_OF_RANGE;
-// 					return ;
-// 				}
-// 				f_i++;
-// 			}
-// 			else if ((type == 'C') && (c_i < 3))
-// 			{
-// 				data->ceiling_color[c_i] = ft_atoi(start);
-// 				if (data->ceiling_color[c_i] < 0 || data->ceiling_color[c_i] > 250)
-// 				{
-// 					*code = ERR_COLOR_OUT_OF_RANGE;
-// 					return ;
-// 				}
-// 				c_i++;
-// 			}
-// 			on_off(buffer);
-// }
-
-static void	start_the_show(char *buffer, t_map_data *data, error_code *code, char type)
+static void	set_color(char *buffer, char type, t_map_data *data, char *start)
 {
-	char		*start;
-	static int	f_c[2];
 	static int	f_i;
 	static int	c_i;
 
-	while(buffer)
+	on_off(buffer);
+	if ((type == 'F') && (f_i < 3))
+	{
+		data->floor_color[f_i] = ft_atoi(start);
+		if (data->floor_color[f_i] < 0 || data->floor_color[f_i] > 250)
+			hanlde_error(ERR_COLOR_OUT_OF_RANGE);
+		f_i++;
+	}
+	else if ((type == 'C') && (c_i < 3))
+	{
+		data->ceiling_color[c_i] = ft_atoi(start);
+		if (data->ceiling_color[c_i] < 0 || data->ceiling_color[c_i] > 250)
+			hanlde_error(ERR_COLOR_OUT_OF_RANGE);
+		c_i++;
+	}
+	else if (f_i >= 3 || c_i >= 3)
+		hanlde_error(ERR_INVALID_COLOR_FORMAT);
+	on_off(buffer);
+}
+
+static void	clr(char *buffer, t_map_data *data, error_code *code, char type)
+{
+	char	*start;
+
+	while (buffer)
 	{
 		if (*buffer == '\0')
-			break;
+			break ;
 		if (!is_digit(*buffer))
 		{
 			*code = ERR_INVALID_COLOR_FORMAT;
@@ -46,31 +54,7 @@ static void	start_the_show(char *buffer, t_map_data *data, error_code *code, cha
 		while (is_digit(*buffer))
 			buffer++;
 		if (*buffer == ',' || *buffer == '\n')
-		{
-			on_off(buffer);
-			if ((type == 'F') && (f_i < 3))
-			{
-				data->floor_color[f_i] = ft_atoi(start);
-				if (data->floor_color[f_i] < 0 || data->floor_color[f_i] > 250)
-				{
-					*code = ERR_COLOR_OUT_OF_RANGE;
-					return ;
-				}
-				f_i++;
-			}
-			else if ((type == 'C') && (c_i < 3))
-			{
-				data->ceiling_color[c_i] = ft_atoi(start);
-				if (data->ceiling_color[c_i] < 0 || data->ceiling_color[c_i] > 250)
-				{
-					*code = ERR_COLOR_OUT_OF_RANGE;
-					return ;
-				}
-				c_i++;
-			}
-			on_off(buffer);
-		}
-
+			set_color(buffer, type, data, start);
 		else
 		{
 			*code = ERR_MISSING_COLOR;
@@ -92,11 +76,10 @@ error_code	is_color(char *buffer, t_map_data *data)
 		type = *buffer;
 		if (!is_space(*(buffer + 1)))
 			hanlde_error(ERR_INVALID_COLOR_FORMAT);
-			// return (ERR_INVALID_COLOR_FORMAT);
 		buffer = (buffer + 1);
 		while (is_space(*buffer))
 			buffer++;
-		start_the_show(buffer, data, &code, type);
+		clr(buffer, data, &code, type);
 		return (code);
 	}
 	else

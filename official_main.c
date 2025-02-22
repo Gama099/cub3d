@@ -151,9 +151,12 @@ static void	start_parsing(int fd, char *buffer, t_map_data *data)
 		if (*buffer != '\n')
 		{
 			// trim spaces
-			while (is_space(*buffer))
-				buffer++;
-			buffer_size = strlen(buffer);
+			// while (is_space(*buffer))
+			// 	buffer++;
+			// printf("b>>>>[%s]\n", buffer);
+			trim_buffer(&buffer);
+			// printf("a>>>>[%s]\n", buffer);
+			// buffer_size = strlen(buffer);
 			// if (!buffer || !*buffer || buffer_size <= 3)
 			// 	return ;
 			err_texture = is_texture(buffer, data);
@@ -161,7 +164,7 @@ static void	start_parsing(int fd, char *buffer, t_map_data *data)
 			size = is_map(buffer, data, fd);
 			if ((err_texture != ERR_NONE && err_texture != ERR_NOT_TEXTURE)
 				|| (err_img != ERR_NONE && err_img != ERR_NOT_IMG))
-				exit(printf("error o safi"));
+					exit(printf("error o safi"));
 			else if ((err_texture == ERR_NOT_TEXTURE) && (err_img == ERR_NOT_IMG) && size == 0)
 				exit(printf("imposter line [%s]", buffer));
 			// we are in the map
