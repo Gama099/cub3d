@@ -1,0 +1,11 @@
+NO ./map.txt         
+WE ./map.txt
+SO ./map.txt
+EA ./map.txt
+
+C 200,100,50
+F 200,10,30
+
+111
+1N1
+111
