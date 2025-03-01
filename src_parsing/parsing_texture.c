@@ -6,7 +6,7 @@
 /*   By: sel-hadd <sel-hadd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:01:35 by sel-hadd          #+#    #+#             */
-/*   Updated: 2025/02/28 16:05:34 by sel-hadd         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:54:22 by sel-hadd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*is_path(char *path)
 		close(img_fd);
 		return (path);
 	}
+	return (NULL);
 }
 
 static int	is_texture_full(t_map_data *data)

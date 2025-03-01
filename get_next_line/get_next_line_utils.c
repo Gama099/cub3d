@@ -6,7 +6,7 @@
 /*   By: sel-hadd <sel-hadd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:01:03 by sel-hadd          #+#    #+#             */
-/*   Updated: 2025/02/28 14:34:22 by sel-hadd         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:55:50 by sel-hadd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	copy(t_list *head, char *line)
 void	clear_list(t_list **head, char *str, t_list *node)
 {
 	t_list	*tmp;
-	t_list	*current;
+	// t_list	*current;
 
 	tmp = *head;
 	while (tmp)
 	{
-		current = tmp;
+		// current = tmp;
 		tmp = tmp->next;
 	}
 	if (*str)

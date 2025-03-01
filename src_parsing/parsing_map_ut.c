@@ -6,7 +6,7 @@
 /*   By: sel-hadd <sel-hadd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 14:03:43 by sel-hadd          #+#    #+#             */
-/*   Updated: 2025/02/28 16:05:34 by sel-hadd         ###   ########.fr       */
+/*   Updated: 2025/03/01 14:54:53 by sel-hadd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	is_allawed(char *iter)
 	{
 		handle_error(ERR_INVALID_MAP_CHAR);
 	}
+	return (1);
 }
 
 void	check_position(char *iter, t_map_data *data, int w, int h)
